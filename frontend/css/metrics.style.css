@@ -1,0 +1,126 @@
+body {
+    background: linear-gradient(135deg, #4e0000, #1f0000);
+    padding: 20px;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+#logoutBtn {
+    display: block;
+    margin: 0 auto 20px auto;
+    padding: 10px 20px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#logoutBtn:hover {
+    background-color: #880303;
+}
+
+#filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+#filters label {
+    font-size: 14px;
+    color: #fff;
+}
+
+#filters input[type="date"] {
+    padding: 5px 8px;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+}
+
+#filters input[type="date"]:focus {
+    border-color: #2575fc;
+    box-shadow: 0 0 5px rgba(37,117,252,0.3);
+    outline: none;
+}
+
+#applyFilter {
+    padding: 6px 12px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#applyFilter:hover {
+    background-color: #880303;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #570000;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+}
+
+tr:hover {
+    background-color: #f1f5f9;
+}
+
+#pagination {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#pagination button {
+    padding: 6px 12px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 2px;
+    background-color: #850202;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#pagination button:hover {
+    background-color: #420303;
+}
+
+#pageInfo {
+    margin: 0 10px;
+    font-weight: bold;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    #filters {
+        flex-direction: column;
+        align-items: center;
+    }
+}

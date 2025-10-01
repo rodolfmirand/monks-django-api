@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Métricas</title>
+    <link rel="stylesheet" href="./css/metrics.style.css">
+</head>
+<body>
+    <h1>Métricas</h1>
+
+    <button id="logoutBtn">Sair</button>
+
+    <div id="filters">
+        <label>Data início: <input type="date" id="startDate"></label>
+        <label>Data fim: <input type="date" id="endDate"></label>
+        <button id="applyFilter">Aplicar filtro</button>
+    </div>
+
+    <table id="metricsTable">
+        <thead>
+            <tr>
+                <th data-column="account_id">Account ID</th>
+                <th data-column="campaign_id">Campaign ID</th>
+                <th data-column="cost_micros">Cost</th>
+                <th data-column="clicks">Clicks</th>
+                <th data-column="conversions">Conversions</th>
+                <th data-column="impressions">Impressions</th>
+                <th data-column="interactions">Interactions</th>
+                <th data-column="date">Date</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    
+
+    <div id="pagination">
+        <button id="prevPage">Anterior</button>
+        <span id="pageInfo"></span>
+        <button id="nextPage">Próxima</button>
+    </div>
+
+    <script src="./js/metrics.js"></script>
+</body>
+</html>
