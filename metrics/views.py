@@ -17,7 +17,6 @@ with open(METRICS_CSV_PATH, newline='', encoding='utf-8') as csvfile:
         row['date'] = row['date']
         METRICS_DATA.append(row)
 
-
 class MetricsView(APIView):
     PAGE_SIZE_DEFAULT = 20
 
@@ -30,23 +29,25 @@ class MetricsView(APIView):
         page = int(request.GET.get("page", 1))
         page_size = int(request.GET.get("page_size", self.PAGE_SIZE_DEFAULT))
 
-        filtered_data = copy.deepcopy(METRICS_DATA)
+        filtered_data = METRICS_DATA.copy()
 
         if start_date:
             filtered_data = [d for d in filtered_data if d['date'] >= start_date]
         if end_date:
             filtered_data = [d for d in filtered_data if d['date'] <= end_date]
 
-        if role != "admin":
-            for d in filtered_data:
-                d.pop('cost_micros', None)
-
-        if sort_by and filtered_data and sort_by in filtered_data[0]:
+        if sort_by and sort_by in filtered_data[0]:
             descending = sort_order.lower() == "desc"
-            filtered_data.sort(
-                key=lambda x: x.get(sort_by, 0),
-                reverse=descending
-            )
+            filtered_data.sort(key=lambda x: x[sort_by], reverse=descending)
+
+        for i, d in enumerate(filtered_data):
+            if role != "admin":
+                d.pop("cost_micros", None)
+            else:
+                if "cost_micros" in d:
+                    cost_value = d.pop("cost_micros")
+                    d["cost_micros"] = cost_value
+            filtered_data[i] = d
 
         total = len(filtered_data)
         start_idx = (page - 1) * page_size
