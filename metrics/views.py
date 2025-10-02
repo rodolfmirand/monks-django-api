@@ -25,6 +25,7 @@ class MetricsView(APIView):
         start_date = request.GET.get("start_date")
         end_date = request.GET.get("end_date")
         sort_by = request.GET.get("sort_by")
+        sort_order = request.GET.get("sort_order", "asc")
         page = int(request.GET.get("page", 1))
         page_size = int(request.GET.get("page_size", self.PAGE_SIZE_DEFAULT))
 
@@ -36,7 +37,8 @@ class MetricsView(APIView):
             filtered_data = [d for d in filtered_data if d['date'] <= end_date]
 
         if sort_by and sort_by in filtered_data[0]:
-            filtered_data.sort(key=lambda x: x[sort_by])
+            descending = sort_order.lower() == "desc"
+            filtered_data.sort(key=lambda x: x[sort_by], reverse=descending)
 
         if role != "admin":
             for d in filtered_data:
