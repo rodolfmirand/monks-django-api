@@ -6,7 +6,6 @@ import copy
 METRICS_CSV_PATH = "data/metrics.csv"
 METRICS_DATA = []
 
-# Carrega os dados do CSV e já converte os valores numéricos
 with open(METRICS_CSV_PATH, newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
@@ -31,21 +30,17 @@ class MetricsView(APIView):
         page = int(request.GET.get("page", 1))
         page_size = int(request.GET.get("page_size", self.PAGE_SIZE_DEFAULT))
 
-        # deepcopy garante que alterações não afetem METRICS_DATA original
         filtered_data = copy.deepcopy(METRICS_DATA)
 
-        # Filtro por datas
         if start_date:
             filtered_data = [d for d in filtered_data if d['date'] >= start_date]
         if end_date:
             filtered_data = [d for d in filtered_data if d['date'] <= end_date]
 
-        # Remove cost_micros se não for admin
         if role != "admin":
             for d in filtered_data:
                 d.pop('cost_micros', None)
 
-        # Ordenação segura
         if sort_by and filtered_data and sort_by in filtered_data[0]:
             descending = sort_order.lower() == "desc"
             filtered_data.sort(
@@ -53,7 +48,6 @@ class MetricsView(APIView):
                 reverse=descending
             )
 
-        # Paginação
         total = len(filtered_data)
         start_idx = (page - 1) * page_size
         end_idx = start_idx + page_size
